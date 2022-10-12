@@ -1,11 +1,14 @@
-import React from 'react'
+import React, {useState} from 'react'
 
 export default function EasyForm() {
-    let initialState = {subject:'', modifier:'', relationship:'', object:''}
-    const [clueConditions, setClueConditions] = (initialState)
+    let initialState = {subject:'', modifier:'', relationship:'placeholder', object:''}
+    const [clueConditions, setClueConditions] = useState(initialState)
     function handleChange(e) {
         let {name, value} = e.target
         setClueConditions({...clueConditions, [name]:value})
+    }
+    function renderComponent(){
+        
     }
   return (
     <div>

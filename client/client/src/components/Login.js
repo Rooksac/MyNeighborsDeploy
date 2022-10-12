@@ -30,7 +30,7 @@ export default function Login({onLogin}) {
         <form onSubmit = {handleSubmit}>
             <input type = 'text' name = 'name' value = {userData.name} onChange = {handleChange}/>
             <input type = 'text' name = 'password' value = {userData.password} onChange = {handleChange}/>
-            <button type = 'submit'></button>
+            <button type = 'submit'>Log in</button>
         </form>
         <SignUp/>
     </div>

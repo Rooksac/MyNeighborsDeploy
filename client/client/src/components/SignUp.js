@@ -26,7 +26,7 @@ export default function SignUp() {
         <form onSubmit = {handleSubmit}>
             <input type = 'text' name = 'name' value = {newUserInfo.name} onChange = {handleChange}/>
             <input type = 'text' name = 'password' value = {newUserInfo.password} onChange = {handleChange}/>
-            <button type = 'submit'></button>
+            <button type = 'submit'>Create Account</button>
         </form>
     </div>
   )

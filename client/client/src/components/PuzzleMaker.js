@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import heapsPermute from '../../public/heapalgo.js'
+import heapsPermute from '../heapalgo.js'
 import EasyForm from './EasyForm.js'
 
 export default function PuzzleMaker() {
@@ -8,13 +8,13 @@ export default function PuzzleMaker() {
     const [newPuzzle, setNewPuzzle] = useState(initialState)
 
     function handleDifficultyChange() {
-        if (value === "1"){
+        if (newPuzzle.difficulty === "1"){
             setPermutations(heapsPermute(['a', 'b', 'c', 'd']).map(a => a.join(' ')))
         }
-        else if (value === "2"){
+        else if (newPuzzle.difficulty === "2"){
             setPermutations(heapsPermute(['a', 'b', 'c', 'd', 'e']).map(a => a.join(' ')))
         }
-        else if (value === "3") {
+        else if (newPuzzle.difficulty === "3") {
             setPermutations(heapsPermute(['a', 'b', 'c', 'd', 'e', 'f']).map(a => a.join(' ')))
         }
         else {setPermutations([])}
@@ -27,7 +27,7 @@ export default function PuzzleMaker() {
                 <option>2</option>
                 <option>3</option>
             </select>
-            if(newPuzzle.difficulty === '') {<EasyForm/>}
+            {<EasyForm/>}
         </form>
 
     </div>
