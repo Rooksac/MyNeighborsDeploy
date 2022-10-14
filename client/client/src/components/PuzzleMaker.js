@@ -27,6 +27,10 @@ export default function PuzzleMaker() {
         setNewPuzzle({...newPuzzle, [name]:value})
     }
 
+    function savePuzzle() {
+
+    }
+
     function onDifficultyChange(){
         if (newPuzzle.difficulty === "1"){
             setPermutations(heapsPermute(['a', 'b', 'c', 'd']).map(a => a.join('')))
@@ -59,6 +63,7 @@ export default function PuzzleMaker() {
         </form>
         {<EasyForm filterPermutations = {filterPermutations} saveClue = {saveClue}/>}
         {savedClues.map(clue=><p>{clue}</p>)}
+        {permutations.length > 1? <p>Your puzzle is not yet valid... Add another clue!</p>:<button>Save your puzzle!</button>}
     </div>
   )
 }
