@@ -11,7 +11,7 @@ export default function PuzzleFeed() {
     useEffect(getPuzzles, [])
   return (
     <div>
-        {puzzles.map(puzzle => <PuzzleCard puzzle = {puzzle}/>)}
+        {puzzles.map(puzzle => <PuzzleCard key = {puzzle.id} puzzle = {puzzle}/>)}
     </div>
   )
 }
