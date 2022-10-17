@@ -10,7 +10,8 @@ export default function Login({onLogin}) {
         let {name, value} = e.target
         setUserData({...userData, [name]:value})
     }
-    function handleSubmit(){
+    function handleSubmit(e){
+      e.preventDefault()
         fetch('/login', {
   method: 'POST', 
   headers: {

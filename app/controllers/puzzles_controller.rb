@@ -1,6 +1,6 @@
 class PuzzlesController < ApplicationController
     skip_before_action :authenticated_user, only: [:index, :show]
-    before_action :find_puzzle, only: [:show, :create, :destroy]
+    before_action :find_puzzle, only: [:show, :destroy]
     
     def index
         puzzles = Puzzle.all
@@ -12,7 +12,10 @@ class PuzzlesController < ApplicationController
     end
 
     def create
-        puzzle = Puzzle.create(puzzle_params)
+        puzzle = Puzzle.create!(user_id: current_user.id, difficulty: params[:difficulty], solution: params[:solution])
+        for clue in params[:clues] do
+            Clue.create!(text: clue, puzzle: puzzle)
+        end
         render json: puzzle
     end
 
@@ -28,6 +31,6 @@ class PuzzlesController < ApplicationController
     end
 
     def puzzle_params
-        parmas.permit(:user_id, :solution, :difficulty)
+        params.permit(:user_id, :solution, :difficulty, :clues)
     end
 end

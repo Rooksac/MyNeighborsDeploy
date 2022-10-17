@@ -1,13 +1,14 @@
 import React, {useState, useEffect} from 'react'
 import heapsPermute from '../heapalgo.js'
+import {Link} from 'react-router-dom'
 
 
-export default function PuzzleMaker() {
+export default function EasyPuzzle() {
     
-    const [permutations, setPermutations] = useState([])
-    let initialPuzzleState = {difficulty:'', solution: permutations[0], user_id: ''}
-    const [testPermutations, setTestPermutations] = useState([])
-    const [newPuzzle, setNewPuzzle] = useState(initialPuzzleState)
+    const [permutations, setPermutations] = useState(heapsPermute(['a', 'b', 'c', 'd']).map(a => a.join('')))
+    
+    const [testPermutations, setTestPermutations] = useState(heapsPermute(['a', 'b', 'c', 'd']).map(a => a.join('')))
+    
     const [savedClues, setSavedClues] = useState([])
     let initialState = {subject:'placeholder', modifier:'placeholder', relationship:'placeholder', object:'placeholder'}
     const [clueConditions, setClueConditions] = useState(initialState)
@@ -25,12 +26,9 @@ export default function PuzzleMaker() {
         let updatedArray = [...testPermutations]
         setPermutations(updatedArray)
         setSavedClues([...savedClues, newClue])
+        setClueConditions(initialState)
     }
 
-    function handleDifficultyChange(e) {
-        let {name, value} = e.target
-        setNewPuzzle({...newPuzzle, [name]:value})
-    }
 
     function savePuzzle() {
     fetch('/puzzles', {
@@ -38,7 +36,7 @@ export default function PuzzleMaker() {
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({...newPuzzle, clues: savedClues}),
+        body: JSON.stringify({difficulty: '1', clues: savedClues, solution: permutations[0]}),
         })
         .then((response) => response.json())
         .then((data) => {
@@ -46,21 +44,6 @@ export default function PuzzleMaker() {
         })
     }
 
-    function onDifficultyChange(){
-        if (newPuzzle.difficulty === "1"){
-            setPermutations(heapsPermute(['a', 'b', 'c', 'd']).map(a => a.join('')))
-            setTestPermutations(heapsPermute(['a', 'b', 'c', 'd']).map(a => a.join('')))
-        }
-        else if (newPuzzle.difficulty === "2"){
-            setPermutations(heapsPermute(['a', 'b', 'c', 'd', 'e']).map(a => a.join('')))
-            setTestPermutations(heapsPermute(['a', 'b', 'c', 'd', 'e']).map(a => a.join('')))
-        }
-        else if (newPuzzle.difficulty === "3"){
-            setPermutations(heapsPermute(['a', 'b', 'c', 'd', 'e', 'f']).map(a => a.join('')))
-            setTestPermutations(heapsPermute(['a', 'b', 'c', 'd', 'e', 'f']).map(a => a.join('')))
-        }
-        else {setPermutations([])}
-    }
 
     function handleChange(e) {
         let {name, value} = e.target
@@ -72,32 +55,32 @@ export default function PuzzleMaker() {
     }
     
     let generateFilter  = function(string){
-        if (clueConditions.relationship === '>' || clueConditions.relationship === '<'){
-            console.log(clueConditions.modifier+string.indexOf(clueConditions.subject) + clueConditions.relationship + string.indexOf(clueConditions.object))
-            return (eval(clueConditions.modifier + string.indexOf(clueConditions.subject) + clueConditions.relationship + string.indexOf(clueConditions.object)))}
+        if ((clueConditions.relationship === '>' || clueConditions.relationship === '<') && (clueConditions.object === '0' || clueConditions.object === '1' || clueConditions.object === '2' || clueConditions.object === '3' )){
+            if (clueConditions.modifier === ''){
+                return (eval(string.indexOf(clueConditions.subject) + clueConditions.relationship + clueConditions.object))}
+            else {return !(eval(string.indexOf(clueConditions.subject) + clueConditions.relationship + clueConditions.object))}
+        }
+        else if (clueConditions.relationship === '>' || clueConditions.relationship === '<'){
+            if (clueConditions.modifier === ''){
+                return (eval(string.indexOf(clueConditions.subject) + clueConditions.relationship + string.indexOf(clueConditions.object)))}
+            else {return !(eval(string.indexOf(clueConditions.subject) + clueConditions.relationship + string.indexOf(clueConditions.object)))}}
         else if (clueConditions.relationship === '==='){
-            return (eval(clueConditions.modifier+string.indexOf(clueConditions.subject) + clueConditions.relationship + clueConditions.object))
+            if (clueConditions.modifier === ''){
+                return (eval(string.indexOf(clueConditions.subject) + clueConditions.relationship + clueConditions.object))}
+            else {return !(eval(string.indexOf(clueConditions.subject) + clueConditions.relationship + clueConditions.object))}
         }
         else {
-            console.log(clueConditions.modifier+string.indexOf(clueConditions.subject) +'==='+ (string.indexOf(clueConditions.object)+clueConditions.relationship))
-            return (eval(clueConditions.modifier+string.indexOf(clueConditions.subject) +'==='+ (string.indexOf(clueConditions.object)+clueConditions.relationship)))
+            if (clueConditions.modifier === ''){
+                return (eval(string.indexOf(clueConditions.subject) +'==='+ (string.indexOf(clueConditions.object)+clueConditions.relationship)))}
+            else {return !(eval(string.indexOf(clueConditions.subject) +'==='+ (string.indexOf(clueConditions.object)+clueConditions.relationship)))}
         }
     }
-
-    useEffect(onDifficultyChange, [newPuzzle])
 
     
   return (
     <div>
-        <h3># of Possible solutions: {testPermutations.length}</h3>
-        <form>
-            <select onChange = {handleDifficultyChange} value = {newPuzzle.difficulty} name = 'difficulty'>
-                <option>--set difficulty--</option>
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-            </select>
-        </form>
+        {testPermutations.length >= 10?<h3># of Possible solutions: {testPermutations.length}</h3>:
+        testPermutations.map(perm=> <p>{perm}</p>)}
         <form onSubmit = {(e)=>saveClue(e, clue)}>
             <select name = 'subject' onChange = {handleChange} value = {clueConditions.subject}>
                 <option>--select a person--</option>
@@ -156,9 +139,9 @@ export default function PuzzleMaker() {
             <button type = 'submit'>Save Clue</button>
             
         </form>
-        <button onClick = {()=>filterPermutations(generateFilter)}>Apply Clue</button>
+        <button onClick = {()=>filterPermutations(generateFilter)}>Test your Clue</button>
         {savedClues.map(clue=><p>{clue}</p>)}
-        {permutations.length > 1? <p>Your puzzle is not yet valid... Add another clue!</p>:<button onClick = {savePuzzle}>Save your puzzle!</button>}
+        {permutations.length > 1? <p>Your puzzle is not yet valid... Add another clue!</p>:<Link to='/'><button onClick = {savePuzzle}>Save your puzzle!</button></Link>}
     </div>
   )
 }

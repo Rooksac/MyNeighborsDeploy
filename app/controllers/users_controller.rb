@@ -21,6 +21,10 @@ class UsersController < ApplicationController
         render json: user
     end
 
+    def me
+        render json: current_user, status: :ok
+    end
+
     private
 
     def find_user
