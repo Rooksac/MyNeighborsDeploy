@@ -36,3 +36,23 @@
     transform: rotate(360deg);
   }
 }
+
+.building {
+  margin: 8px;
+  border: 1px solid lightgrey;
+  border-radius: 2px;
+  width: 20%;
+  padding-top: 5%;
+  padding-bottom: 5%;
+  background: rgb(195,85,34);
+  background: linear-gradient(0deg, rgba(195,85,34,1) 0%, rgba(253,72,45,1) 100%);
+}
+
+.neighbor {
+  border: 1px solid lightgrey;
+  border-radius: 2px;
+  padding: 8px;
+  background-color: white;
+  margin: auto;
+  margin-bottom: 2%;
+}
