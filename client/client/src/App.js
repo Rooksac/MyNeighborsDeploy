@@ -45,7 +45,7 @@ function App() {
       <Routes>
       <Route path = '/login' element = {<Login onLogin = {onLogin}/>}/>
       <Route path = '/' element = {<Home user = {user}/>}/>
-      <Route path = '/puzzle_history' element = {<PuzzleHistory puzzles = {user.solveds}/>}/>
+      <Route path = '/puzzle_history' element = {<PuzzleHistory puzzles = {user.puzzles}/>}/>
       <Route path = '/puzzle_feed' element = {<PuzzleFeed />}/>
       <Route path = '/easy_puzzle' element = {<EasyPuzzle/>}/>
       <Route path = '/medium_puzzle' element = {<MediumPuzzle/>}/>

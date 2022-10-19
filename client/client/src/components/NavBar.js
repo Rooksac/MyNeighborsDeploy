@@ -1,5 +1,7 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
+import {Container, Nav, Navbar, NavDropdown} from 'react-bootstrap'
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 export default function NavBar({user, handleLogout}) {
   

@@ -1,31 +1,37 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState} from 'react'
 import heapsPermute from '../heapalgo.js'
 import {Link} from 'react-router-dom'
 
 
-export default function PuzzleMaker() {
+export default function HardPuzzle() {
     
     const [permutations, setPermutations] = useState(heapsPermute(['a', 'b', 'c', 'd', 'e', 'f']).map(a => a.join('')))
+    
     const [testPermutations, setTestPermutations] = useState(heapsPermute(['a', 'b', 'c', 'd', 'e', 'f']).map(a => a.join('')))
+    const [showSave, setShowSave] = useState(false)
+    
     const [savedClues, setSavedClues] = useState([])
     let initialState = {subject:'placeholder', modifier:'placeholder', relationship:'placeholder', object:'placeholder'}
     const [clueConditions, setClueConditions] = useState(initialState)
     const [clueText, setClueText] = useState(initialState)
     let clue = `${clueText.subject}` + ' ' + `${clueText.modifier}` + ' ' + `${clueText.relationship}` + ' ' + `${clueText.object}`
 
-    let filterPermutations = function(fun){
+    let filterPermutations = function(e, fun){
+        e.preventDefault()
         let filteredArray = permutations.filter(str =>fun(str))
         setTestPermutations(filteredArray)
+        setShowSave(!showSave)
 
     }
 
-    function saveClue(e, newClue){
-        e.preventDefault()
+    function saveClue(newClue){
         let updatedArray = [...testPermutations]
         setPermutations(updatedArray)
         setSavedClues([...savedClues, newClue])
         setClueConditions(initialState)
+        setShowSave(false)
     }
+
 
     function savePuzzle() {
     fetch('/puzzles', {
@@ -41,13 +47,19 @@ export default function PuzzleMaker() {
         })
     }
 
+
     function handleChange(e) {
         let {name, value} = e.target
         let index = e.nativeEvent.target.selectedIndex
-        console.log(e.nativeEvent.target[index].text)
         setClueConditions({...clueConditions, [name]:value})
         setClueText({...clueText, [name]:e.nativeEvent.target[index].text})
         
+    }
+
+    function handleReset(){
+        setClueConditions(initialState)
+        setTestPermutations([...permutations])
+        setShowSave(!showSave)
     }
     
     let generateFilter  = function(string){
@@ -77,7 +89,7 @@ export default function PuzzleMaker() {
     <div>
         {testPermutations.length >= 10?<h3># of Possible solutions: {testPermutations.length}</h3>:
         testPermutations.map(perm=> <p>{perm}</p>)}
-        <form onSubmit = {(e)=>saveClue(e, clue)}>
+        <form onSubmit = {(e)=>filterPermutations(e, generateFilter)}>
             <select name = 'subject' onChange = {handleChange} value = {clueConditions.subject}>
                 <option>--select a person--</option>
                 <option value = 'a'>A</option>
@@ -104,11 +116,11 @@ export default function PuzzleMaker() {
                 <option value = '+2'>2 floors above</option>
                 <option value = '-2'>2 floors below</option>
                 <option value = '+3'>3 floors above</option>
-                <option value = '-3'>3 floors above</option>
+                <option value = '-3'>3 floors below</option>
                 <option value = '+4'>4 floors above</option>
-                <option value = '-4'>4 floors above</option>
+                <option value = '-4'>4 floors below</option>
                 <option value = '+5'>5 floors above</option>
-                <option value = '-5'>5 floors above</option>
+                <option value = '-5'>5 floors below</option>
             </select>}
             {clueConditions.relationship==='==='&&
             <select name = 'object' onChange = {handleChange} value = {clueConditions.object}>
@@ -136,7 +148,7 @@ export default function PuzzleMaker() {
                 <option value = '4'>the fifth floor</option>
                 <option value = '5'>the sixth floor</option>
             </select>}
-            {(clueConditions.relationship === '+1' || clueConditions.relationship === "+2" || clueConditions.relationship === "+3" || clueConditions.relationship === "-1" || clueConditions.relationship === "-2" || clueConditions.relationship === "-3") &&
+            {(clueConditions.relationship === '+1' || clueConditions.relationship === "+2" || clueConditions.relationship === "+3" || clueConditions.relationship === "+4" || clueConditions.relationship === "+5" || clueConditions.relationship === "-1" || clueConditions.relationship === "-2" || clueConditions.relationship === "-3" || clueConditions.relationship === "-4" || clueConditions.relationship === "-5") &&
             <select name = 'object' onChange = {handleChange} value = {clueConditions.object}> 
                 <option>--select a person--</option>
                 <option value = 'a'>A</option>
@@ -146,10 +158,13 @@ export default function PuzzleMaker() {
                 <option value = 'e'>E</option>
                 <option value = 'f'>F</option>
             </select>}
-            <button type = 'submit'>Save Clue</button>
-            
+            {!showSave &&<button type = 'submit'>Test your Clue</button>}
         </form>
-        <button onClick = {()=>filterPermutations(generateFilter)}>Test your Clue</button>
+        
+        {showSave && <>
+        <button onClick={()=>saveClue(clue)}>Save Clue</button>
+        <button onClick={handleReset}>Reset</button>
+        </>}
         {savedClues.map(clue=><p>{clue}</p>)}
         {permutations.length > 1? <p>Your puzzle is not yet valid... Add another clue!</p>:<Link to='/'><button onClick = {savePuzzle}>Save your puzzle!</button></Link>}
     </div>

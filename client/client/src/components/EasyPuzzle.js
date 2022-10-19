@@ -114,7 +114,7 @@ export default function EasyPuzzle() {
                 <option value = '+2'>2 floors above</option>
                 <option value = '-2'>2 floors below</option>
                 <option value = '+3'>3 floors above</option>
-                <option value = '-3'>3 floors above</option>
+                <option value = '-3'>3 floors below</option>
             </select>}
             {clueConditions.relationship==='==='&&
             <select name = 'object' onChange = {handleChange} value = {clueConditions.object}>

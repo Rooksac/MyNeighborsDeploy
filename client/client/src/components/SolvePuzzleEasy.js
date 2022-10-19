@@ -1,10 +1,12 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useRef} from 'react'
 import {useParams} from 'react-router-dom'
 import {DragDropContext, Droppable} from 'react-beautiful-dnd'
+import Countdown from 'react-countdown'
 
 import Floor from './Floor'
 
 export default function SolvePuzzleEasy() {
+  const count = useRef()
   const params = useParams()
   const [puzzle, setPuzzle] = useState({})
   const [clues, setClues] = useState([])
@@ -51,6 +53,21 @@ function onDragEnd(result){
     setPuzzleData(newPuzzleData)
 }
 
+function handleTimeUp(){
+  fetch('/attempted_puzzles', {
+    method: 'POST', 
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({puzzle_id:puzzle.id, 'solved?': false}),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log('Success:', data);
+    })
+    alert('Too slow!')
+}
+
 function handleSolve(){
   if (puzzleData.building.neighborIds.reverse().join('')===puzzle.solution){
     fetch('/attempted_puzzles', {
@@ -67,7 +84,7 @@ function handleSolve(){
   alert("Correct! You're a genius!")
   }
   else {fetch('/attempted_puzzles', {
-    method: 'POST', // or 'PUT'
+    method: 'POST', 
     headers: {
       'Content-Type': 'application/json',
     },
@@ -78,11 +95,15 @@ function handleSolve(){
       console.log('Success:', data);
     })
     alert('Oops not quite')}
+    console.log('hey')
+    count.stop()
 }
   useEffect(getPuzzle, [])
   return (
 
   <>
+  <Countdown onComplete={handleTimeUp} ref={count} date={Date.now() + 5000}/>
+    
     {clues.map(clue=><p key = {clue.id}>{clue.text}</p>)}
     <DragDropContext onDragEnd={onDragEnd}>
       <Droppable droppableId='droppable'>
