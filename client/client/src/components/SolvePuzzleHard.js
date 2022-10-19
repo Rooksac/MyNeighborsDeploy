@@ -4,7 +4,7 @@ import {DragDropContext, Droppable} from 'react-beautiful-dnd'
 
 import Floor from './Floor'
 
-export default function SolvePuzzle() {
+export default function SolvePuzzleHard() {
   const params = useParams()
   const [puzzle, setPuzzle] = useState({})
   const [clues, setClues] = useState([])
@@ -66,6 +66,7 @@ function handleSolve(){
   .then((data) => {
     console.log('Success:', data);
   })
+  alert("Correct! You're a genius!")
   }
   else {fetch('/attempted_puzzles', {
     method: 'POST', // or 'PUT'
@@ -77,7 +78,8 @@ function handleSolve(){
     .then((response) => response.json())
     .then((data) => {
       console.log('Success:', data);
-    })}
+    })
+    alert('Oops not quite')}
 }
   useEffect(getPuzzle, [])
   return (

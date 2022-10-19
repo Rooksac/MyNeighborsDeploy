@@ -1,7 +1,4 @@
 import React, {useState} from 'react'
-import PuzzleHistory from './PuzzleHistory'
-import PuzzleMaker from './EasyPuzzle'
-import PuzzleFeed from './PuzzleFeed'
 import {Link} from 'react-router-dom'
 export default function Home({user}) {
   const [clicked, setClicked] = useState(false)

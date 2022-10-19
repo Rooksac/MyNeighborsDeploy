@@ -5,16 +5,18 @@ import NavBar from './components/NavBar';
 import Home from './components/Home';
 import Login from './components/Login';
 import {useState, useEffect} from 'react'
-import {Route, Routes, Link} from "react-router-dom"
+import {Route, Routes} from "react-router-dom"
 import EasyPuzzle from './components/EasyPuzzle';
 import PuzzleHistory from './components/PuzzleHistory';
 import PuzzleFeed from './components/PuzzleFeed';
 import MediumPuzzle from './components/MediumPuzzle';
 import HardPuzzle from './components/HardPuzzle'
-import SolvePuzzle from './components/SolvePuzzle';
+import SolvePuzzleHard from './components/SolvePuzzleHard';
+import SolvePuzzleEasy from './components/SolvePuzzleEasy';
+import SolvePuzzleMedium from './components/SolvePuzzleMedium'
 
 function App() {
-  const [user, setUser] = useState({})
+  const [user, setUser] = useState('')
   function onLogin(userData){
     setUser(userData)
   }
@@ -23,7 +25,7 @@ function App() {
       method: 'DELETE',})
       .then((res) => {
         if (res.ok) {
-          setUser({})
+          setUser('')
         }
       }); 
   }
@@ -48,7 +50,9 @@ function App() {
       <Route path = '/easy_puzzle' element = {<EasyPuzzle/>}/>
       <Route path = '/medium_puzzle' element = {<MediumPuzzle/>}/>
       <Route path = '/hard_puzzle' element = {<HardPuzzle/>}/>
-      <Route path = '/solve_puzzle/:id' element = {<SolvePuzzle/>}/>
+      <Route path = '/solve_puzzle_easy/:id' element = {<SolvePuzzleEasy/>}/>
+      <Route path = '/solve_puzzle_medium/:id' element = {<SolvePuzzleMedium/>}/>
+      <Route path = '/solve_puzzle_hard/:id' element = {<SolvePuzzleHard/>}/>
       </Routes>
     </div>
   );
