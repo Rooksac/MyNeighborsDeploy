@@ -1,26 +1,10 @@
-import React, {useState, useEffect, useRef} from 'react'
-import {useParams, useNavigate} from 'react-router-dom'
+import React, {useState} from 'react'
+import {useNavigate} from 'react-router-dom'
 import {DragDropContext, Droppable} from 'react-beautiful-dnd'
-import Countdown from 'react-countdown'
-
 import Floor from './Floor'
 
-export default function SolvePuzzleEasy({user}) {
+export default function SolvePuzzleEasy({user, stopTimer, puzzle, clues}) {
   const navigate = useNavigate()
-  const count = useRef()
-  const params = useParams()
-  const [puzzle, setPuzzle] = useState({})
-  const [clues, setClues] = useState([])
-  function getPuzzle(){
-    fetch(`/puzzles/${params.id}`)
-    .then((res)=>res.json())
-    .then((data)=>{
-      setPuzzle(data)
-      setClues(data.clues)}
-    )
-    
-  }
-
   const [puzzleData, setPuzzleData] = useState({
     neighbors: {
     'a':{id: 'a', name:'A'},
@@ -53,22 +37,6 @@ function onDragEnd(result){
     setPuzzleData(newPuzzleData)
 }
 
-function handleTimeUp(){
-  if (user){
-  fetch('/attempted_puzzles', {
-    method: 'POST', 
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({puzzle_id:puzzle.id, 'solved?': false}),
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      console.log('Success:', data);
-    })}
-    alert('Too slow!')
-    navigate('/')
-}
 
 function handleSolve(){
   let newArray = [...puzzleData.building.neighborIds].reverse().join('')
@@ -86,7 +54,7 @@ function handleSolve(){
     console.log('Success:', data);
   })}
   alert("Correct! You're a genius!")
-  count.current.pause()
+  stopTimer()
   navigate('/')
   }
   else {
@@ -103,15 +71,12 @@ function handleSolve(){
       console.log('Success:', data);
     })}
     alert('Oops not quite')}
-    count.current.pause()
+    stopTimer()
     navigate('/')
 }
-  useEffect(getPuzzle, [])
   return (
 
   <>
-  <Countdown onComplete={handleTimeUp} ref={count} date={Date.now() + 60000}/>
-    
     {clues.map(clue=><p key = {clue.id}>{clue.text}</p>)}
     <DragDropContext onDragEnd={onDragEnd}>
       <Droppable droppableId='droppable'>

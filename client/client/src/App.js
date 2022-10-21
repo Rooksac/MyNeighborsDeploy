@@ -11,9 +11,7 @@ import PuzzleHistory from './components/PuzzleHistory';
 import PuzzleFeed from './components/PuzzleFeed';
 import MediumPuzzle from './components/MediumPuzzle';
 import HardPuzzle from './components/HardPuzzle'
-import SolvePuzzleHard from './components/SolvePuzzleHard';
-import SolvePuzzleEasy from './components/SolvePuzzleEasy';
-import SolvePuzzleMedium from './components/SolvePuzzleMedium'
+import SolvePuzzle from './components/SolvePuzzle';
 
 function App() {
   const [user, setUser] = useState('')
@@ -50,9 +48,7 @@ function App() {
       <Route path = '/easy_puzzle' element = {<EasyPuzzle/>}/>
       <Route path = '/medium_puzzle' element = {<MediumPuzzle/>}/>
       <Route path = '/hard_puzzle' element = {<HardPuzzle/>}/>
-      <Route path = '/solve_puzzle_easy/:id' element = {<SolvePuzzleEasy user = {user}/>}/>
-      <Route path = '/solve_puzzle_medium/:id' element = {<SolvePuzzleMedium user = {user}/>}/>
-      <Route path = '/solve_puzzle_hard/:id' element = {<SolvePuzzleHard user = {user}/>}/>
+      <Route path = '/solve_puzzle/:id' element = {<SolvePuzzle user = {user}/>}/>
       </Routes>
     </div>
   );
