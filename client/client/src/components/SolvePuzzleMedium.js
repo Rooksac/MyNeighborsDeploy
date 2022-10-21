@@ -1,10 +1,13 @@
-import React, {useState, useEffect} from 'react'
-import {useParams} from 'react-router-dom'
+import React, {useState, useEffect, useRef} from 'react'
+import {useParams, useNavigate} from 'react-router-dom'
 import {DragDropContext, Droppable} from 'react-beautiful-dnd'
+import Countdown from 'react-countdown'
 
 import Floor from './Floor'
 
-export default function SolvePuzzleMedium() {
+export default function SolvePuzzleMedium({user}) {
+  const count = useRef()
+  const navigate = useNavigate()
   const params = useParams()
   const [puzzle, setPuzzle] = useState({})
   const [clues, setClues] = useState([])
@@ -33,6 +36,7 @@ export default function SolvePuzzleMedium() {
     }
 })
 
+
 function onDragEnd(result){
   let {destination, source, draggableId} = result;
   if (!destination) {
@@ -52,23 +56,10 @@ function onDragEnd(result){
     setPuzzleData(newPuzzleData)
 }
 
-function handleSolve(){
-  if (puzzleData.building.neighborIds.reverse().join('')===puzzle.solution){
-    fetch('/attempted_puzzles', {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json',
-  },
-  body: JSON.stringify({puzzle_id:puzzle.id, 'solved?': true}),
-})
-  .then((response) => response.json())
-  .then((data) => {
-    console.log('Success:', data);
-  })
-  alert("Correct! You're a genius!")
-  }
-  else {fetch('/attempted_puzzles', {
-    method: 'POST', // or 'PUT'
+function handleTimeUp(){
+  if (user){
+  fetch('/attempted_puzzles', {
+    method: 'POST', 
     headers: {
       'Content-Type': 'application/json',
     },
@@ -77,13 +68,53 @@ function handleSolve(){
     .then((response) => response.json())
     .then((data) => {
       console.log('Success:', data);
+    })}
+    alert('Too slow!')
+    navigate('/')
+  }
+
+  function handleSolve(){
+    let newArray = [...puzzleData.building.neighborIds].reverse().join('')
+    if (newArray===puzzle.solution){
+      if (user){
+      fetch('/attempted_puzzles', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({puzzle_id:puzzle.id, 'solved?': true}),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log('Success:', data);
+    })}
+    alert("Correct! You're a genius!")
+    count.current.pause()
+    navigate('/')
+    }
+    else {
+      if (user){
+        fetch('/attempted_puzzles', {
+      method: 'POST', 
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({puzzle_id:puzzle.id, 'solved?': false}),
     })
-  alert('Oops not quite')}
-}
+      .then((response) => response.json())
+      .then((data) => {
+        console.log('Success:', data);
+      })}
+      alert('Oops not quite')}
+      count.current.pause()
+      navigate('/')
+  }
   useEffect(getPuzzle, [])
   return (
 
   <>
+  <Countdown onComplete={handleTimeUp} ref={count} date={Date.now() + 60000}/>
+    
     {clues.map(clue=><p key = {clue.id}>{clue.text}</p>)}
     <DragDropContext onDragEnd={onDragEnd}>
       <Droppable droppableId='droppable'>

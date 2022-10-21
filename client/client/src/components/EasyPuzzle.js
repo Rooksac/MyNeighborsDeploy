@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 import heapsPermute from '../heapalgo.js'
 import {Link} from 'react-router-dom'
+import DisplayPerm from './DisplayPerm.js'
 
 
 export default function EasyPuzzle() {
@@ -87,8 +88,10 @@ export default function EasyPuzzle() {
     
   return (
     <div>
-        {testPermutations.length >= 10?<h3># of Possible solutions: {testPermutations.length}</h3>:
-        testPermutations.map(perm=> <p>{perm}</p>)}
+        <div className='permtracker'>
+        {testPermutations.length > 10?<h3># of Possible solutions: {testPermutations.length}</h3>:
+        testPermutations.map(perm=> <DisplayPerm perm = {perm}/>)}
+        </div>
         <form onSubmit = {(e)=>filterPermutations(e, generateFilter)}>
             <select name = 'subject' onChange = {handleChange} value = {clueConditions.subject}>
                 <option>--select a person--</option>

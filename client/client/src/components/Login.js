@@ -1,9 +1,11 @@
 import React from 'react'
 import SignUp from './SignUp'
 import {useState} from 'react'
+import { useNavigate } from 'react-router-dom'
 
 
-export default function Login({onLogin}) {
+export default function Login({onLogin, user}) {
+    const navigate = useNavigate()
     let initialState = {name:'', password:''}
     const [userData, setUserData] = useState(initialState)
     function handleChange(e){
@@ -25,6 +27,7 @@ export default function Login({onLogin}) {
     console.log('Success:', data);
   })
   setUserData(initialState)
+  navigate('/')
     }
   return (
     <div>

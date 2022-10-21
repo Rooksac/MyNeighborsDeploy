@@ -7,4 +7,8 @@ class User < ApplicationRecord
     has_many :puzzles
     has_many :puzzles_solveds, foreign_key: :user_id, class_name: "AttemptedPuzzle"
     has_many :solveds, through: :puzzles_solveds, source: :puzzle
+
+    def solve_rate
+        "#{self.puzzles_solveds.where(solved?:true).count} / #{self.puzzles_solveds.count}"
+    end
 end

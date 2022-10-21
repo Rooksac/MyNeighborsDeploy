@@ -1,11 +1,12 @@
 import React, {useState, useEffect, useRef} from 'react'
-import {useParams} from 'react-router-dom'
+import {useParams, useNavigate} from 'react-router-dom'
 import {DragDropContext, Droppable} from 'react-beautiful-dnd'
 import Countdown from 'react-countdown'
 
 import Floor from './Floor'
 
-export default function SolvePuzzleEasy() {
+export default function SolvePuzzleEasy({user}) {
+  const navigate = useNavigate()
   const count = useRef()
   const params = useParams()
   const [puzzle, setPuzzle] = useState({})
@@ -49,11 +50,11 @@ function onDragEnd(result){
     newNeighborIds.splice(destination.index, 0, draggableId)
     let newBuilding = {...building, neighborIds: newNeighborIds}
     let newPuzzleData = {...puzzleData, building: newBuilding}
-    console.log(puzzleData, newPuzzleData)
     setPuzzleData(newPuzzleData)
 }
 
 function handleTimeUp(){
+  if (user){
   fetch('/attempted_puzzles', {
     method: 'POST', 
     headers: {
@@ -64,12 +65,15 @@ function handleTimeUp(){
     .then((response) => response.json())
     .then((data) => {
       console.log('Success:', data);
-    })
+    })}
     alert('Too slow!')
+    navigate('/')
 }
 
 function handleSolve(){
-  if (puzzleData.building.neighborIds.reverse().join('')===puzzle.solution){
+  let newArray = [...puzzleData.building.neighborIds].reverse().join('')
+  if (newArray===puzzle.solution){
+    if (user){
     fetch('/attempted_puzzles', {
   method: 'POST',
   headers: {
@@ -80,10 +84,14 @@ function handleSolve(){
   .then((response) => response.json())
   .then((data) => {
     console.log('Success:', data);
-  })
+  })}
   alert("Correct! You're a genius!")
+  count.current.pause()
+  navigate('/')
   }
-  else {fetch('/attempted_puzzles', {
+  else {
+    if (user){
+      fetch('/attempted_puzzles', {
     method: 'POST', 
     headers: {
       'Content-Type': 'application/json',
@@ -93,16 +101,16 @@ function handleSolve(){
     .then((response) => response.json())
     .then((data) => {
       console.log('Success:', data);
-    })
+    })}
     alert('Oops not quite')}
-    console.log('hey')
-    count.stop()
+    count.current.pause()
+    navigate('/')
 }
   useEffect(getPuzzle, [])
   return (
 
   <>
-  <Countdown onComplete={handleTimeUp} ref={count} date={Date.now() + 5000}/>
+  <Countdown onComplete={handleTimeUp} ref={count} date={Date.now() + 60000}/>
     
     {clues.map(clue=><p key = {clue.id}>{clue.text}</p>)}
     <DragDropContext onDragEnd={onDragEnd}>

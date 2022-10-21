@@ -7,8 +7,10 @@ export default function Home({user}) {
   }
   return (
     <div>
+      {user && <div>
       <h3>Welcome back {user.name}</h3>
       <p>Puzzle solve rate: {user.solve_rate}</p>
+      </div>}
       <Link to = 'puzzle_feed'>Browse Puzzles</Link>
       <button onClick = {handleClick}>Create your own puzzle!</button>
       {clicked && <div>

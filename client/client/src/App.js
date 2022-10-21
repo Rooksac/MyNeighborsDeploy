@@ -43,16 +43,16 @@ function App() {
     <div className="App">
       <NavBar user = {user} handleLogout = {handleLogout}/>
       <Routes>
-      <Route path = '/login' element = {<Login onLogin = {onLogin}/>}/>
+      <Route path = '/login' element = {<Login onLogin = {onLogin} user = {user}/>}/>
       <Route path = '/' element = {<Home user = {user}/>}/>
       <Route path = '/puzzle_history' element = {<PuzzleHistory puzzles = {user.puzzles}/>}/>
       <Route path = '/puzzle_feed' element = {<PuzzleFeed />}/>
       <Route path = '/easy_puzzle' element = {<EasyPuzzle/>}/>
       <Route path = '/medium_puzzle' element = {<MediumPuzzle/>}/>
       <Route path = '/hard_puzzle' element = {<HardPuzzle/>}/>
-      <Route path = '/solve_puzzle_easy/:id' element = {<SolvePuzzleEasy/>}/>
-      <Route path = '/solve_puzzle_medium/:id' element = {<SolvePuzzleMedium/>}/>
-      <Route path = '/solve_puzzle_hard/:id' element = {<SolvePuzzleHard/>}/>
+      <Route path = '/solve_puzzle_easy/:id' element = {<SolvePuzzleEasy user = {user}/>}/>
+      <Route path = '/solve_puzzle_medium/:id' element = {<SolvePuzzleMedium user = {user}/>}/>
+      <Route path = '/solve_puzzle_hard/:id' element = {<SolvePuzzleHard user = {user}/>}/>
       </Routes>
     </div>
   );
