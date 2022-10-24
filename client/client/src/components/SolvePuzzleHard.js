@@ -8,12 +8,12 @@ export default function SolvePuzzleMedium({user, stopTimer, puzzle, clues}) {
  
   const [puzzleData, setPuzzleData] = useState({
     neighbors: {
-    'a':{id: 'a', name:'A'},
-    'b':{id: 'b', name:'B'},
-    'c':{id: 'c', name:'C'},
-    'd':{id: 'd', name: 'D'},
-    'e':{id: 'e', name: 'E'},
-    'f':{id: 'f', name: 'F'}
+    'a':{id: 'a', name:'Alex'},
+    'b':{id: 'b', name:'Bobby'},
+    'c':{id: 'c', name:'Casey'},
+    'd':{id: 'd', name: 'Devin'},
+    'e':{id: 'e', name: 'Ernie'},
+    'f':{id: 'f', name: 'Frankie'}
   },
     building: {
       id: 'building',

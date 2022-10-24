@@ -66,3 +66,10 @@
   display: flex;
   border: 2px solid blue;
 }
+
+.formdiv {
+  width: 23vw;
+    margin-left: auto;
+    margin-right: auto;
+}
+

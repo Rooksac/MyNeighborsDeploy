@@ -1,7 +1,9 @@
 import React from 'react'
-import SignUp from './SignUp'
 import {useState} from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+
 
 
 export default function Login({onLogin, user}) {
@@ -30,13 +32,25 @@ export default function Login({onLogin, user}) {
   navigate('/')
     }
   return (
-    <div>
-        <form onSubmit = {handleSubmit}>
-            <input type = 'text' name = 'name' value = {userData.name} onChange = {handleChange}/>
-            <input type = 'text' name = 'password' value = {userData.password} onChange = {handleChange}/>
-            <button type = 'submit'>Log in</button>
-        </form>
-        <SignUp/>
+    <div className='formdiv'>
+      <Form onSubmit = {handleSubmit}>
+      <Form.Group className="mb-3" controlId="formBasicEmail">
+        <Form.Label>Username</Form.Label>
+        <Form.Control type = 'text' name = 'name' value = {userData.name} onChange = {handleChange} placeholder="Enter username" />
+        <Form.Text className="text-muted">
+          We'll never share your email with anyone else.
+        </Form.Text>
+      </Form.Group>
+
+      <Form.Group className="mb-3" controlId="formBasicPassword">
+        <Form.Label>Password</Form.Label>
+        <Form.Control type = 'text' name = 'password' value = {userData.password} onChange = {handleChange} placeholder="Password" />
+      </Form.Group>
+      <Button variant="primary" type="submit">
+        Submit
+      </Button>
+    </Form>
+        <p>Don't have an account yet?  <Link to = '/signup'>Sign up!</Link></p>  
     </div>
   )
 }

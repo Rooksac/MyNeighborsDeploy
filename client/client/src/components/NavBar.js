@@ -1,22 +1,30 @@
 import React from 'react'
-import {Link} from 'react-router-dom'
-import {Container, Nav, Navbar, NavDropdown} from 'react-bootstrap'
+import {Container, Nav, Navbar} from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 export default function NavBar({user, handleLogout}) {
-  
   return (
     <div>
       {user === ''?
-    <ul>
-    <li><Link to="/">Home</Link></li>
-    <li><Link to="/login">Log In</Link></li>
-  </ul>:
-  <ul>
-  <li><Link to="/">Home</Link></li>
-  <li onClick = {handleLogout}><Link to="/login">Log Out</Link></li>
-  <li><Link to="/puzzle_history">My Puzzle History</Link></li>
-</ul>}
+    <Navbar bg="primary" variant="dark">
+        <Container>
+          <Navbar.Brand to="/">My Neighbors</Navbar.Brand>
+          <Nav className="me-auto">
+            <Nav.Link href="/">Home</Nav.Link>
+            <Nav.Link href="/login">Login</Nav.Link>
+          </Nav>
+        </Container>
+      </Navbar>:
+      <Navbar bg="primary" variant="dark">
+      <Container>
+        <Navbar.Brand href="#home">My Neighbors</Navbar.Brand>
+        <Nav className="me-auto">
+          <Nav.Link href="/">Home</Nav.Link>
+          <Nav.Link href="/puzzle_history">My Puzzle History</Nav.Link>
+          <Nav.Link onClick = {handleLogout} href="/login">Log Out</Nav.Link>
+        </Nav>
+      </Container>
+    </Navbar>}
     </div>
   )
 }

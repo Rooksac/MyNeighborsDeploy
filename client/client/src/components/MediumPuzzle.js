@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 import heapsPermute from '../heapalgo.js'
 import {Link} from 'react-router-dom'
+import DisplayPerm from './DisplayPerm.js'
 
 
 export default function MediumPuzzle() {
@@ -87,25 +88,27 @@ export default function MediumPuzzle() {
     
   return (
     <div>
-        {testPermutations.length >= 10?<h3># of Possible solutions: {testPermutations.length}</h3>:
-        testPermutations.map(perm=> <p>{perm}</p>)}
+        <div className='permtracker'>
+        {testPermutations.length > 10?<h3># of Possible solutions: {testPermutations.length}</h3>:
+        testPermutations.map(perm=> <DisplayPerm perm = {perm}/>)}
+        </div>
         <form onSubmit = {(e)=>filterPermutations(e, generateFilter)}>
-            <select name = 'subject' onChange = {handleChange} value = {clueConditions.subject}>
+            <select name = 'subject' onChange = {handleChange} value = {clueConditions.subject} disabled = {showSave?true:false}>
                 <option>--select a person--</option>
-                <option value = 'a'>A</option>
-                <option value = 'b'>B</option>
-                <option value = 'c'>C</option>
-                <option value = 'd'>D</option>
-                <option value = 'e'>E</option>
+                <option value = 'a'>Alex</option>
+                <option value = 'b'>Bobbie</option>
+                <option value = 'c'>Casey</option>
+                <option value = 'd'>Devin</option>
+                <option value = 'e'>Ernie</option>
             </select>
             {clueConditions.subject !== 'placeholder' &&
-            <select name = 'modifier' onChange = {handleChange} value = {clueConditions.modifier}>
+            <select name = 'modifier' onChange = {handleChange} value = {clueConditions.modifier} disabled = {showSave?true:false}>
                 <option>--select a modifier--</option>
                 <option value = "">lives</option>
                 <option value = "!">does not live</option>
             </select>}
             {clueConditions.modifier !== 'placeholder' &&
-            <select name = 'relationship' onChange = {handleChange} value = {clueConditions.relationship}>
+            <select name = 'relationship' onChange = {handleChange} value = {clueConditions.relationship} disabled = {showSave?true:false}>
                 <option>--select a relationship--</option>
                 <option value = '==='>on</option>
                 <option value = '>'>above</option>
@@ -120,7 +123,7 @@ export default function MediumPuzzle() {
                 <option value = '-4'>4 floors below</option>
             </select>}
             {clueConditions.relationship==='==='&&
-            <select name = 'object' onChange = {handleChange} value = {clueConditions.object}>
+            <select name = 'object' onChange = {handleChange} value = {clueConditions.object} disabled = {showSave?true:false}>
                 <option>--select a floor--</option>
                 <option value = '0'>the first floor</option>
                 <option value = '1'>the second floor</option>
@@ -129,13 +132,13 @@ export default function MediumPuzzle() {
                 <option value = '4'>the fifth floor</option>
             </select>}
             {(clueConditions.relationship === '>' || clueConditions.relationship === '<') &&
-            <select name = 'object' onChange = {handleChange} value = {clueConditions.object}>
+            <select name = 'object' onChange = {handleChange} value = {clueConditions.object} disabled = {showSave?true:false}>
                 <option>--select a person or floor--</option>
-                <option value = 'a'>A</option>
-                <option value = 'b'>B</option>
-                <option value = 'c'>C</option>
-                <option value = 'd'>D</option>
-                <option value = 'e'>E</option>
+                <option value = 'a'>Alex</option>
+                <option value = 'b'>Bobbie</option>
+                <option value = 'c'>Casey</option>
+                <option value = 'd'>Devin</option>
+                <option value = 'e'>Ernie</option>
                 <option value = '0'>the first floor</option>
                 <option value = '1'>the second floor</option>
                 <option value = '2'>the third floor</option>
@@ -143,13 +146,13 @@ export default function MediumPuzzle() {
                 <option value = '4'>the fifth floor</option>
             </select>}
             {(clueConditions.relationship === '+1' || clueConditions.relationship === "+2" || clueConditions.relationship === "+3" || clueConditions.relationship === "+4" || clueConditions.relationship === "-1" || clueConditions.relationship === "-2" || clueConditions.relationship === "-3" || clueConditions.relationship === "-4") &&
-            <select name = 'object' onChange = {handleChange} value = {clueConditions.object}> 
+            <select name = 'object' onChange = {handleChange} value = {clueConditions.object} disabled = {showSave?true:false}> 
                 <option>--select a person--</option>
-                <option value = 'a'>A</option>
-                <option value = 'b'>B</option>
-                <option value = 'c'>C</option>
-                <option value = 'd'>D</option>
-                <option value = 'e'>E</option>
+                <option value = 'a'>Alex</option>
+                <option value = 'b'>Bobbie</option>
+                <option value = 'c'>Casey</option>
+                <option value = 'd'>Devin</option>
+                <option value = 'e'>Ernie</option>
             </select>}
             {!showSave &&<button type = 'submit'>Test your Clue</button>}
         </form>
@@ -158,7 +161,10 @@ export default function MediumPuzzle() {
         <button onClick={()=>saveClue(clue)}>Save Clue</button>
         <button onClick={handleReset}>Reset</button>
         </>}
-        {savedClues.map(clue=><p>{clue}</p>)}
+        <h4>Clues:</h4>
+        <ol>
+        {savedClues.map(clue=><li>{clue}</li>)}
+        </ol>
         {permutations.length > 1? <p>Your puzzle is not yet valid... Add another clue!</p>:<Link to='/'><button onClick = {savePuzzle}>Save your puzzle!</button></Link>}
     </div>
   )
