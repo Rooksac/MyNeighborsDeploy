@@ -73,3 +73,15 @@
     margin-right: auto;
 }
 
+.userspan {
+  margin-top: 5%;
+  width: 50vh;
+  justify-content: left;
+}
+
+.homebuttons {
+  margin-top: 5%;
+  width: 35vh;
+  height: 50vh;
+  border: 2px solid black
+}

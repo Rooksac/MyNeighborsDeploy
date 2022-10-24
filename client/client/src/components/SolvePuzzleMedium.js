@@ -2,17 +2,22 @@ import React, {useState} from 'react'
 import {useNavigate} from 'react-router-dom'
 import {DragDropContext, Droppable} from 'react-beautiful-dnd'
 import Floor from './Floor'
+import alex from './images/alex.png'
+import bobbie from './images/bobbie.png'
+import casey from './images/casey.png'
+import devin from './images/devin.png'
+import ernie from './images/ernie.png'
 
 export default function SolvePuzzleMedium({user, stopTimer, puzzle, clues}) {
 
   const navigate = useNavigate()
   const [puzzleData, setPuzzleData] = useState({
     neighbors: {
-    'a':{id: 'a', name:'A'},
-    'b':{id: 'b', name:'B'},
-    'c':{id: 'c', name:'C'},
-    'd':{id: 'd', name: 'D'},
-    'e':{id: 'e', name: 'E'}
+    'a':{id: 'a', name:'Alex', image:alex},
+    'b':{id: 'b', name:'Bobbie', image:bobbie},
+    'c':{id: 'c', name:'Casey', image:casey},
+    'd':{id: 'd', name: 'Devin', image:devin},
+    'e':{id: 'e', name: 'Ernie', image:ernie}
   },
     building: {
       id: 'building',

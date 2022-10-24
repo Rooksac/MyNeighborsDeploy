@@ -14,10 +14,11 @@ export default function Home({user}) {
   }
   return (
     <div>
-      {user && <div>
+      {user && <div className='userspan'>
       <h3>Welcome back {user.name}</h3>
       <p>Puzzle solve rate: {user.solve_rate}</p>
       </div>}
+      <div className='homebuttons'>
       <ListGroup>
       <ListGroup.Item action variant="info" >
         Instructions
@@ -36,6 +37,7 @@ export default function Home({user}) {
       </ButtonGroup>
       </div>}
       </ListGroup>
+      </div>
     </div>
   )
 }
