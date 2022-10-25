@@ -7,6 +7,8 @@ import bobbie from './images/bobbie.png'
 import casey from './images/casey.png'
 import devin from './images/devin.png'
 import ernie from './images/ernie.png'
+import building from './images/vector-cartoon-seafront.jpg'
+import Swal from 'sweetalert2'
 
 export default function SolvePuzzleMedium({user, stopTimer, puzzle, clues}) {
 
@@ -46,48 +48,67 @@ function onDragEnd(result){
 }
 
 
-  function handleSolve(){
-    let newArray = [...puzzleData.building.neighborIds].reverse().join('')
-    if (newArray===puzzle.solution){
-      if (user){
+function handleSolve(){
+  let newArray = [...puzzleData.building.neighborIds].reverse().join('')
+  if (newArray===puzzle.solution){
+    if (user){
+    fetch('/attempted_puzzles', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({puzzle_id:puzzle.id, 'solved?': true}),
+})
+  .then((response) => response.json())
+  .then((data) => {
+    console.log('Success:', data);
+  })}
+  Swal.fire({
+    icon: 'success',
+    title: 'Correct!',
+    text: "You're a genius!",
+    color: '#FFC107',
+    confirmButtonColor: '#FFC107',
+  background: '#0D6EFD'
+  })
+  stopTimer()
+  navigate('/')
+  }
+  else {
+    if (user){
       fetch('/attempted_puzzles', {
-    method: 'POST',
+    method: 'POST', 
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({puzzle_id:puzzle.id, 'solved?': true}),
+    body: JSON.stringify({puzzle_id:puzzle.id, 'solved?': false}),
   })
     .then((response) => response.json())
     .then((data) => {
       console.log('Success:', data);
     })}
-    alert("Correct! You're a genius!")
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: `Not quite`,
+      color: '#DC3545',
+      confirmButtonColor: '#DC3545',
+      background: '#0D6EFD'
+    })}
     stopTimer()
     navigate('/')
-    }
-    else {
-      if (user){
-        fetch('/attempted_puzzles', {
-      method: 'POST', 
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({puzzle_id:puzzle.id, 'solved?': false}),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log('Success:', data);
-      })}
-      alert('Oops not quite')}
-      stopTimer()
-      navigate('/')
-  }
+}
   return (
 
-  <>
-    
-    {clues.map(clue=><p key = {clue.id}>{clue.text}</p>)}
+    <div>
+    <img className='solve-bg' src = {building}/>
+    <div className='building-and-clues'>
+    <ol className='solveclues'>
+    {clues.map(clue=><li className = 'clue-item' key = {clue.id}>{clue.text}</li>)}
+    </ol>
     <DragDropContext onDragEnd={onDragEnd}>
+      <div className='building-wrapper'>
+      <div className='top-floor'>Neighbors</div>
       <Droppable droppableId='droppable'>
         {(provided)=>(
     <div className='building' ref = {provided.innerRef} {...provided.droppableProps}>
@@ -96,10 +117,14 @@ function onDragEnd(result){
         return <Floor key = {neighbor.id} neighbor = {neighbor} index = {index}/>
       })}
       {provided.placeholder}
+      <button className='submit-button' onClick = {handleSolve}>Solve</button>
     </div>)}
       </Droppable>
+      </div>
     </DragDropContext>
-    <button onClick = {handleSolve}>Submit answer</button>
-  </>
+    
+    </div>
+    
+  </div>
   )
 }

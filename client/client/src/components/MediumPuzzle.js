@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import heapsPermute from '../heapalgo.js'
 import {Link} from 'react-router-dom'
 import DisplayPerm from './DisplayPerm.js'
+import Swal from 'sweetalert2'
 
 
 export default function MediumPuzzle() {
@@ -46,6 +47,14 @@ export default function MediumPuzzle() {
         .then((data) => {
         console.log('Success:', data);
         })
+        Swal.fire({
+            icon: 'success',
+            title: 'Success!',
+            text: 'YOur puzzle has been created!',
+            color: '#FFC107',
+            confirmButtonColor: '#FFC107',
+          background: '#0D6EFD'
+          })
     }
 
 
@@ -88,9 +97,11 @@ export default function MediumPuzzle() {
     
   return (
     <div>
+        <p>Make clues until your puzzle has only 1 possible solution!</p>
         <div className='permtracker'>
-        {testPermutations.length > 10?<h3># of Possible solutions: {testPermutations.length}</h3>:
-        testPermutations.map(perm=> <DisplayPerm perm = {perm}/>)}
+        {testPermutations.length > 10 && <h3>Your puzzle currently has {testPermutations.length} possible solutions</h3>}
+        {(testPermutations.length <=10 && testPermutations.length >0) && testPermutations.map(perm=> <DisplayPerm perm = {perm}/>)}
+        {testPermutations.length === 0 && <h3>Invalid clue.  Your puzzle must have a solution.</h3>}
         </div>
         <form onSubmit = {(e)=>filterPermutations(e, generateFilter)}>
             <select name = 'subject' onChange = {handleChange} value = {clueConditions.subject} disabled = {showSave?true:false}>
@@ -158,11 +169,11 @@ export default function MediumPuzzle() {
         </form>
         
         {showSave && <>
-        <button onClick={()=>saveClue(clue)}>Save Clue</button>
+        <button onClick={()=>saveClue(clue)} disabled = {testPermutations.length===0?true:false}>Save Clue</button>
         <button onClick={handleReset}>Reset</button>
         </>}
         <h4>Clues:</h4>
-        <ol>
+        <ol className='cluelist'>
         {savedClues.map(clue=><li>{clue}</li>)}
         </ol>
         {permutations.length > 1? <p>Your puzzle is not yet valid... Add another clue!</p>:<Link to='/'><button onClick = {savePuzzle}>Save your puzzle!</button></Link>}

@@ -4,6 +4,7 @@ import {useNavigate, useParams} from 'react-router-dom'
 import SolvePuzzleMedium from './SolvePuzzleMedium'
 import SolvePuzzleEasy from './SolvePuzzleEasy'
 import SolvePuzzleHard from './SolvePuzzleHard'
+import Swal from 'sweetalert2'
 
 
 export default function SolvePuzzle({user}) {
@@ -26,7 +27,14 @@ export default function SolvePuzzle({user}) {
           .then((data) => {
             console.log('Success:', data);
           })}
-          alert('Too slow!')
+          Swal.fire({
+            icon: 'error',
+            title: 'Too slow!',
+            text: 'Puzzle failed',
+            color: '#DC3545',
+            confirmButtonColor: '#DC3545',
+          background: '#0D6EFD'
+          })
           navigate('/')
         }
     function getPuzzle(){

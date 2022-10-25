@@ -10,8 +10,11 @@ export default function PuzzleFeed() {
     }
     useEffect(getPuzzles, [])
   return (
-    <div>
+    <div className='puzzfeed-bg'>
+      <h3>Browse User's Puzzles</h3>
+    <div className='puzzlefeed'>
         {puzzles.map(puzzle => <PuzzleCard key = {puzzle.id} puzzle = {puzzle}/>)}
+    </div>
     </div>
   )
 }

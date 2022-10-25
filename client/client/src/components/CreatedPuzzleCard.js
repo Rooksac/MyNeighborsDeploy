@@ -10,11 +10,11 @@ export default function CreatedPuzzleCard({puzzle}) {
     alert('Text copied');
   }
   return (
-    <div>
+    <div className = 'puzzcard'>
       <Card
           bg={'warning'}
           style={{ width: '18rem' }}
-          className="mb-2">
+          className = 'puzzcard'>
           <Card.Header>Created on {puzzle.creation_time}</Card.Header>
           <Card.Body>
             <Card.Title>Difficulty: {puzzle.difficulty} </Card.Title>

@@ -1,6 +1,7 @@
 import React from 'react'
 import {Container, Nav, Navbar} from 'react-bootstrap'
-import 'bootstrap/dist/css/bootstrap.min.css';
+// import 'bootstrap/dist/css/bootstrap.min.css';
+import home from './images/home.png'
 
 export default function NavBar({user, handleLogout}) {
   return (
@@ -8,7 +9,8 @@ export default function NavBar({user, handleLogout}) {
       {user === ''?
     <Navbar bg="primary" variant="dark">
         <Container>
-          <Navbar.Brand to="/">My Neighbors</Navbar.Brand>
+          <img className='logo' src = {home}/>
+          <Navbar.Brand>My Neighbors</Navbar.Brand>
           <Nav className="me-auto">
             <Nav.Link href="/">Home</Nav.Link>
             <Nav.Link href="/login">Login</Nav.Link>
@@ -17,7 +19,8 @@ export default function NavBar({user, handleLogout}) {
       </Navbar>:
       <Navbar bg="primary" variant="dark">
       <Container>
-        <Navbar.Brand href="#home">My Neighbors</Navbar.Brand>
+        <img className='logo' src = {home}/>
+        <Navbar.Brand>My Neighbors</Navbar.Brand>
         <Nav className="me-auto">
           <Nav.Link href="/">Home</Nav.Link>
           <Nav.Link href="/puzzle_history">My Puzzle History</Nav.Link>

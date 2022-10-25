@@ -5,11 +5,11 @@ import Card from 'react-bootstrap/Card';
 
 export default function PuzzleCard({puzzle}) {
   return (
-    <div>
+    <div className = 'puzzcard'>
       <Card
           bg={'danger'}
           style={{ width: '18rem' }}
-          className="mb-2">
+          className = 'puzzcard'>
           <Card.Header>Created by: {puzzle.user.name}</Card.Header>
           <Card.Body>
             <Card.Title>Difficulty: {puzzle.difficulty} </Card.Title>

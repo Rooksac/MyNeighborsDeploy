@@ -3,6 +3,7 @@ import {useState} from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import Swal from 'sweetalert2';
 
 
 
@@ -23,13 +24,35 @@ export default function Login({onLogin, user}) {
   },
   body: JSON.stringify(userData),
 })
-  .then((response) => response.json())
-  .then((data) => {
-    onLogin(data)
-    console.log('Success:', data);
-  })
+  .then((response) => {
+    if (response.ok){
+      response.json().then((data) => {
+      onLogin(data);
+      Swal.fire({
+        icon: 'success',
+        title: 'Success!',
+        text: 'You have logged in!',
+        color: '#FFC107',
+        confirmButtonColor: '#FFC107',
+      background: '#0D6EFD'
+      })
+      console.log('Success:', data);}
+      
+    )
+    navigate('/')}
+  else{response.json().then((errors) => {
+    console.log(errors)
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: `${errors.errors}`,
+      color: '#DC3545',
+      confirmButtonColor: '#DC3545',
+      background: '#0D6EFD'
+    })
+  });}})
   setUserData(initialState)
-  navigate('/')
+  
     }
   return (
     <div className='formdiv'>

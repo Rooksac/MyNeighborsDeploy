@@ -45,7 +45,7 @@ function App() {
   }, []);
   return (
     <div className="App">
-      {location.pathname !== '/solve_puzzle/:id'?<NavBar user = {user} handleLogout = {handleLogout}/>:null}
+      <NavBar user = {user} handleLogout = {handleLogout}/>
       <Routes>
       <Route path = '/login' element = {<Login onLogin = {onLogin} user = {user}/>}/>
       <Route path = '/' element = {<Home user = {user}/>}/>

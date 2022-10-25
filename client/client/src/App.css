@@ -1,58 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap');
+
 .App {
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
 
 .building {
-  margin: 8px;
   border: 1px solid lightgrey;
   border-radius: 2px;
-  width: 20%;
-  padding-top: 5%;
-  padding-bottom: 5%;
-  background: rgb(195,85,34);
+  width: 100%;
+  min-height: 65vh;
+  padding: 10px;
   background: linear-gradient(0deg, rgba(195,85,34,1) 0%, rgba(253,72,45,1) 100%);
 }
 
 .neighbor {
-  border: 1px solid lightgrey;
   border-radius: 2px;
   padding: 8px;
-  background-color: white;
+  background-color: transparent;
   margin: auto;
   margin-bottom: 2%;
 }
@@ -63,6 +29,7 @@
 }
 
 .permtracker {
+  justify-content: center;
   display: flex;
   border: 2px solid blue;
 }
@@ -73,9 +40,17 @@
     margin-right: auto;
 }
 
+.homewrapper {
+  width: 50vw;
+  padding-top: 5%;
+  
+
+}
+
 .userspan {
-  margin-top: 5%;
-  width: 50vh;
+  font-family: 'Indie Flower', cursive;
+  padding-top: 2%;
+  width: 50vw;
   justify-content: left;
 }
 
@@ -83,5 +58,145 @@
   margin-top: 5%;
   width: 35vh;
   height: 50vh;
-  border: 2px solid black
+  padding-left: 19.5%;
+  /* margin: auto; */
+  /* border: 2px solid black */
+}
+
+.puzzlefeed {
+  height: 100vh;
+  display: flex;
+  flex-wrap: wrap;
+  margin: auto;
+  justify-content: center;
+  background-color: #FFC107;
+  overflow: scroll;
+}
+
+.puzzfeed-bg{
+  background-color: #FFC107;
+}
+.puzzhistory {
+  height: 100vh;
+  display: flex;
+  flex-wrap: wrap;
+  margin: auto;
+  justify-content: center;
+  background-color: #DC3545;
+  overflow: scroll;
+}
+.puzzhistory-bg{
+  background-color: #DC3545;
+}
+.puzzcard{
+  font-family: 'Indie Flower', cursive;
+  margin: 2%;
+}
+.logo {
+  width: 5%;
+}
+
+.landingpage {
+  background-image: url('./components/images/vector-cartoon-seafront.jpg');
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  height: 100vh;
+  margin-bottom: 0;
+}
+ .eachhomebutton {
+  margin: 8%;
+  width: 30vw;
+ }
+
+ .eachhomebuttonlevel {
+  margin: 8%;
+  width: 30vw;
+  justify-content: center;
+  justify-content: space-evenly;
+ }
+
+ .cluelist {
+  border: 2px solid black;
+  width: 35vw;
+  margin: auto
+ }
+
+ .solveclues {
+  text-align: right;
+  padding-top: 15%;
+  width: 10vw;
+  height: 25vh;
+  left: 23vw;
+  top:2vh;
+  z-index: 200;
+
+ }
+
+ .clue-item {
+  background-color: yellow;
+  text-align: center;
+  border: 2px solid orange;
+  width: 8vw;
+  margin-bottom: 10%;
+  z-index: 1;
+ }
+
+ .building-and-clues {
+  display: flex;
+  width: 100vw;
+  justify-content: center;
+  
+}
+.solve-bg {
+  /* background-image: url('./components/images/vector-cartoon-seafront.jpg'); */
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  height: 100vh;
+  margin-bottom: 0;
+  position: absolute;
+      left: 0px;
+      top: 0px;
+      z-index: -1;
+      width: 100%;
+      height: 100%;
+      -webkit-filter: blur(5px); /* Safari 6.0 - 9.0 */
+      filter: blur(5px);
+}
+
+.clue-door{
+  height: 50vh;
+  z-index: 2;
+  margin-top: 5%;
+  margin-left: 5%;
+}
+
+.floor{
+  display: flex;
+  background-color: #FFC107;
+  align-items: center;
+  width: 17.5vw;
+  margin: auto;
+  margin-bottom: 5%;
+}
+
+.top-floor{
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+  background-color: purple;
+  text-align: center;
+  padding-top: 15%;
+  width: 110%;
+  height: 5rem
+}
+
+.submit-button{
+  background-color: #4CAF50;
+  border-radius: 50%;
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+
+.building-wrapper{
+  margin-left: 25%;
+  display: flex;
+  flex-direction: column;
+ align-items: center;
 }
