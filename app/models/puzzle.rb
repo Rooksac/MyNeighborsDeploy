@@ -12,4 +12,8 @@ class Puzzle < ApplicationRecord
     def creation_time
         self.created_at.strftime('%a %b %d %Y')
       end
+
+    def self.puzzle_feed(user)
+        Puzzle.where.not(user_id: user.id)
+    end
 end

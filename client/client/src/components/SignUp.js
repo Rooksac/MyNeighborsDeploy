@@ -27,7 +27,9 @@ export default function SignUp() {
          setNewUserInfo(initialState)
     }
   return (
+    <div className='form-bg'>
     <div className='formdiv'>
+        <h3>Sign up to start playing!</h3>
         <Form onSubmit = {handleSubmit}>
             <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Label>Username</Form.Label>
@@ -45,6 +47,7 @@ export default function SignUp() {
                 Submit
             </Button>
         </Form>
+    </div>
     </div>
   )
 }

@@ -11,7 +11,7 @@ export default function DisplayPerm({perm}) {
   }
   return (
     <div className='permdisplay'>
-        {perm.split('').reverse().map(letter=><div>{neighborDic[letter]}</div>)}
+        {perm.split('').reverse().map(letter=><div className='tenants'>{neighborDic[letter]}</div>)}
     </div>
   )
 }

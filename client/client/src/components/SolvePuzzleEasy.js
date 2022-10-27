@@ -96,15 +96,20 @@ function handleSolve(){
 }
   return (
 
-  <div>
+    <div>
     <img className='solve-bg' src = {building}/>
     <div className='building-and-clues'>
-    <ol className='solveclues'>
+      <div className='clue-list-wrapper'>
+      <h3 className='clue-title'>Clues</h3>
+    <ul className='solveclues'>
     {clues.map(clue=><li className = 'clue-item' key = {clue.id}>{clue.text}</li>)}
-    </ol>
+    </ul>
+      </div>
     <DragDropContext onDragEnd={onDragEnd}>
       <div className='building-wrapper'>
-      <div className='top-floor'>Neighbors</div>
+      <div className='top-floor'>
+        <h2 className='top-floor-text'>Neighbors</h2>
+        </div>
       <Droppable droppableId='droppable'>
         {(provided)=>(
     <div className='building' ref = {provided.innerRef} {...provided.droppableProps}>

@@ -54,7 +54,7 @@ export default function SolvePuzzle({user}) {
       
   return (
     <div>
-        <Countdown onComplete={handleTimeUp} ref={count} date={Date.now() + 60000} />
+        <Countdown onComplete={handleTimeUp} ref={count} date={Date.now() + 90000} />
         {puzzle.difficulty === 1 && <SolvePuzzleEasy puzzle = {puzzle} clues = {clues} stopTimer = {stopTimer} user = {user}/>}
         {puzzle.difficulty === 2 && <SolvePuzzleMedium puzzle = {puzzle} clues = {clues} stopTimer = {stopTimer} user = {user}/>}
         {puzzle.difficulty === 3 && <SolvePuzzleHard puzzle = {puzzle} clues = {clues} stopTimer = {stopTimer} user = {user}/>}

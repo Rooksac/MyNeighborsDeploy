@@ -13,6 +13,7 @@ import MediumPuzzle from './components/MediumPuzzle';
 import HardPuzzle from './components/HardPuzzle'
 import SolvePuzzle from './components/SolvePuzzle';
 import SignUp from './components/SignUp';
+import Instructions from './components/Instructions'
 
 function App() {
   const [user, setUser] = useState('')
@@ -32,6 +33,10 @@ function App() {
         }
       }); 
   }
+
+  // function renderNav(){
+  //   if (location.pathname===)
+  // }
 
   useEffect(() => {
     fetch("/me").then((res) => {
@@ -56,6 +61,7 @@ function App() {
       <Route path = '/hard_puzzle' element = {<HardPuzzle/>}/>
       <Route path = '/solve_puzzle/:id' element = {<SolvePuzzle user = {user}/>}/>
       <Route  path = '/signup' element = {<SignUp/>}/>
+      <Route path = '/instructions' element = {<Instructions />}></Route>
       </Routes>
     </div>
   );

@@ -10,21 +10,21 @@ export default function NavBar({user, handleLogout}) {
     <Navbar bg="primary" variant="dark">
         <Container>
           <img className='logo' src = {home}/>
-          <Navbar.Brand>My Neighbors</Navbar.Brand>
+          <Navbar.Brand ><h3 className='nav-link-text-brand'>My Neighbors</h3></Navbar.Brand>
           <Nav className="me-auto">
-            <Nav.Link href="/">Home</Nav.Link>
-            <Nav.Link href="/login">Login</Nav.Link>
+            <Nav.Link className='nav-link-text' href="/">Home</Nav.Link>
+            <Nav.Link className='nav-link-text' href="/login">Login</Nav.Link>
           </Nav>
         </Container>
       </Navbar>:
       <Navbar bg="primary" variant="dark">
       <Container>
         <img className='logo' src = {home}/>
-        <Navbar.Brand>My Neighbors</Navbar.Brand>
+        <Navbar.Brand><h3 className='nav-link-text-brand'>My Neighbors</h3></Navbar.Brand>
         <Nav className="me-auto">
-          <Nav.Link href="/">Home</Nav.Link>
-          <Nav.Link href="/puzzle_history">My Puzzle History</Nav.Link>
-          <Nav.Link onClick = {handleLogout} href="/login">Log Out</Nav.Link>
+          <Nav.Link className='nav-link-text' href="/">Home</Nav.Link>
+          <Nav.Link className='nav-link-text' href="/puzzle_history">My Puzzle History</Nav.Link>
+          <Nav.Link className='nav-link-text' onClick = {handleLogout} href="/login">Log Out</Nav.Link>
         </Nav>
       </Container>
     </Navbar>}

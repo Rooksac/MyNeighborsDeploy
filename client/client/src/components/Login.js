@@ -55,6 +55,7 @@ export default function Login({onLogin, user}) {
   
     }
   return (
+    <div className='form-bg'>
     <div className='formdiv'>
       <Form onSubmit = {handleSubmit}>
       <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -73,7 +74,8 @@ export default function Login({onLogin, user}) {
         Submit
       </Button>
     </Form>
-        <p>Don't have an account yet?  <Link to = '/signup'>Sign up!</Link></p>  
+        <p>Don't have an account yet?  <Link to = '/signup'>Sign up!</Link></p> 
+        </div> 
     </div>
   )
 }

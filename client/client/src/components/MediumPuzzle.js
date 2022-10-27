@@ -3,6 +3,7 @@ import heapsPermute from '../heapalgo.js'
 import {Link} from 'react-router-dom'
 import DisplayPerm from './DisplayPerm.js'
 import Swal from 'sweetalert2'
+import building from './images/vector-cartoon-seafront.jpg'
 
 
 export default function MediumPuzzle() {
@@ -27,11 +28,21 @@ export default function MediumPuzzle() {
     }
 
     function saveClue(newClue){
+        if(testPermutations.length !== permutations.length){
         let updatedArray = [...testPermutations]
         setPermutations(updatedArray)
         setSavedClues([...savedClues, newClue])
         setClueConditions(initialState)
-        setShowSave(false)
+        setShowSave(false)}
+        else{Swal.fire({
+            icon: 'warning',
+            title: 'Clue Not Saved',
+            text: 'That clue is redundant',
+            color: '#FFC107',
+            confirmButtonColor: '#FFC107',
+          background: '#0D6EFD'
+          })}
+          handleReset()
     }
 
 
@@ -50,7 +61,7 @@ export default function MediumPuzzle() {
         Swal.fire({
             icon: 'success',
             title: 'Success!',
-            text: 'YOur puzzle has been created!',
+            text: 'Your puzzle has been created!',
             color: '#FFC107',
             confirmButtonColor: '#FFC107',
           background: '#0D6EFD'
@@ -97,7 +108,13 @@ export default function MediumPuzzle() {
     
   return (
     <div>
-        <p>Make clues until your puzzle has only 1 possible solution!</p>
+        <img className='solve-bg' src = {building}/>
+        <div className='instructions'><p>5 Neighbors each live on a different floor of a 5 story building.</p>
+        <p>Use the dropdowns to make clues until your puzzle has only 1 possible solution!</p></div>
+    <div className='create-puzz-wrapper'>
+        
+        <div className='tracker-wrapper'>
+        
         <div className='permtracker'>
         {testPermutations.length > 10 && <h3>Your puzzle currently has {testPermutations.length} possible solutions</h3>}
         {(testPermutations.length <=10 && testPermutations.length >0) && testPermutations.map(perm=> <DisplayPerm perm = {perm}/>)}
@@ -172,11 +189,15 @@ export default function MediumPuzzle() {
         <button onClick={()=>saveClue(clue)} disabled = {testPermutations.length===0?true:false}>Save Clue</button>
         <button onClick={handleReset}>Reset</button>
         </>}
+        </div>
+        <div className='clue-wrapper'>
         <h4>Clues:</h4>
         <ol className='cluelist'>
         {savedClues.map(clue=><li>{clue}</li>)}
         </ol>
         {permutations.length > 1? <p>Your puzzle is not yet valid... Add another clue!</p>:<Link to='/'><button onClick = {savePuzzle}>Save your puzzle!</button></Link>}
+        </div>
+    </div>
     </div>
   )
 }

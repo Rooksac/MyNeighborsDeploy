@@ -4,6 +4,7 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import building from './images/building.png'
+import Swal from 'sweetalert2';
 export default function Home({user}) {
   const [clicked, setClicked] = useState(false)
   const navigate = useNavigate()
@@ -13,6 +14,47 @@ export default function Home({user}) {
   function nav(){
     navigate('puzzle_feed')
   }
+  function easyNav(){
+    if (user){
+      navigate('easy_puzzle')
+    }
+    else {Swal.fire({
+      icon: 'warning',
+      title: 'Log in',
+      text: 'Must be logged in to create a puzzle',
+      color: '#FFC107',
+      confirmButtonColor: '#FFC107',
+    background: '#0D6EFD'
+    })}
+  }
+
+  function mediumNav(){
+    if (user){
+      navigate('medium_puzzle')
+    }
+    else {Swal.fire({
+      icon: 'warning',
+      title: 'Log in',
+      text: 'Must be logged in to create a puzzle',
+      color: '#FFC107',
+      confirmButtonColor: '#FFC107',
+    background: '#0D6EFD'
+    })}
+  }
+
+  function hardNav(){
+    if (user){
+      navigate('hard_puzzle')
+    }
+    else {Swal.fire({
+      icon: 'warning',
+      title: 'Log in',
+      text: 'Must be logged in to create a puzzle',
+      color: '#FFC107',
+      confirmButtonColor: '#FFC107',
+    background: '#0D6EFD'
+    })}
+  }
   return (
     <div className='landingpage'>
       <div className='homewrapper'>
@@ -21,24 +63,15 @@ export default function Home({user}) {
       <p>Puzzle solve rate: {user.solve_rate}</p>
         </div>}
           <div className='homebuttons'>
-            <Button className='eachhomebutton'>Instructions</Button>
+            <Link to='/instructions'><Button className='eachhomebutton'>Instructions</Button></Link>
             <Button className='eachhomebutton' onClick = {nav}>Check out some Puzzles!</Button>
             <Button className='eachhomebutton' onClick={handleClick}>Make your own Puzzle</Button>
-          {/* <ListGroup className='eachhomebutton'>
-          <ListGroup.Item action variant="info" className='eachhomebutton' >
-            Instructions
-          </ListGroup.Item>
-          <ListGroup.Item action variant="primary" onClick = {nav} className='eachhomebutton'>
-            Check out some Puzzles!
-          </ListGroup.Item>
-          <ListGroup.Item action variant="danger" onClick={handleClick} className='eachhomebutton'>
-            Make your own Puzzle
-          </ListGroup.Item> */}
+          
           {clicked && <div>
             <ButtonGroup className="eachhomebuttonlevel">
-            <Link to='easy_puzzle'><Button variant="success">Easy</Button></Link>
-            <Link to='medium_puzzle'><Button variant="warning">Medium</Button></Link>
-            <Link to='hard_puzzle'><Button variant="danger">Hard</Button></Link>
+            <Button onClick={easyNav} variant="success">Easy</Button>
+            <Button onClick={mediumNav} variant="warning">Medium</Button>
+            <Button onClick={hardNav} variant="danger">Hard</Button>
           </ButtonGroup>
           </div>}
         </div>
