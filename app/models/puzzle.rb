@@ -14,6 +14,10 @@ class Puzzle < ApplicationRecord
       end
 
     def self.puzzle_feed(user)
-        Puzzle.where.not(user_id: user.id)
+        Puzzle.where.not(id: Puzzle.puzzle_feed_ids(user))
+    end
+
+    def self.puzzle_feed_ids(user)
+        user.user_puzzles.concat(user.user_created)
     end
 end

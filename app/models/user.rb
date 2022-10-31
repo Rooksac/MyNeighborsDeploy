@@ -14,4 +14,12 @@ class User < ApplicationRecord
     def solve_rate
         "#{self.puzzles_solveds.where(solved?:true).count} / #{self.puzzles_solveds.count}"
     end
+
+    def user_puzzles
+        self.solveds.map {|puzzle| puzzle.id}
+    end
+
+    def user_created
+        self.puzzles.map {|puzzle| puzzle.id}
+    end
 end

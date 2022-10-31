@@ -34,14 +34,11 @@ export default function SignUp() {
             <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Label>Username</Form.Label>
                 <Form.Control type = 'text' name = 'name' value = {newUserInfo.name} onChange = {handleChange} placeholder="Enter username" />
-                <Form.Text className="text-muted">
-                We'll never share your email with anyone else.
-                </Form.Text>
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="formBasicPassword">
                 <Form.Label>Password</Form.Label>
-                <Form.Control type = 'text' name = 'password' value = {newUserInfo.password} onChange = {handleChange} placeholder="Enter password" />
+                <Form.Control type = 'password' name = 'password' value = {newUserInfo.password} onChange = {handleChange} placeholder="Enter password" />
             </Form.Group>
             <Button variant="primary" type="submit">
                 Submit

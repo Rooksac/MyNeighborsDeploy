@@ -61,14 +61,11 @@ export default function Login({onLogin, user}) {
       <Form.Group className="mb-3" controlId="formBasicEmail">
         <Form.Label>Username</Form.Label>
         <Form.Control type = 'text' name = 'name' value = {userData.name} onChange = {handleChange} placeholder="Enter username" />
-        <Form.Text className="text-muted">
-          We'll never share your email with anyone else.
-        </Form.Text>
       </Form.Group>
 
       <Form.Group className="mb-3" controlId="formBasicPassword">
         <Form.Label>Password</Form.Label>
-        <Form.Control type = 'text' name = 'password' value = {userData.password} onChange = {handleChange} placeholder="Password" />
+        <Form.Control type = 'password' name = 'password' value = {userData.password} onChange = {handleChange} placeholder="Password" />
       </Form.Group>
       <Button variant="primary" type="submit">
         Submit

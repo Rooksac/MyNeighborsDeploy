@@ -13,7 +13,7 @@ export default function PuzzleFeed() {
     <div className='puzzfeed-bg'>
       <h3 className='puzzfeed-header'>Browse User's Puzzles</h3>
     <div className='puzzlefeed'>
-        {puzzles.map(puzzle => <PuzzleCard key = {puzzle.id} puzzle = {puzzle}/>)}
+        {puzzles.length>0?puzzles.map(puzzle => <PuzzleCard key = {puzzle.id} puzzle = {puzzle}/>):<p>You have solved every puzzle you genius!  Check back later for more!</p>}
     </div>
     </div>
   )

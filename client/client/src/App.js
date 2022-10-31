@@ -34,9 +34,7 @@ function App() {
       }); 
   }
 
-  // function renderNav(){
-  //   if (location.pathname===)
-  // }
+  
 
   useEffect(() => {
     fetch("/me").then((res) => {

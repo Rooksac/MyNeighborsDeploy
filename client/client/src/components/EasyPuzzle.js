@@ -41,8 +41,9 @@ export default function EasyPuzzle() {
             color: '#FFC107',
             confirmButtonColor: '#FFC107',
           background: '#0D6EFD'
-          })}
-          handleReset()
+          })
+          handleReset()}
+          
     }
 
 

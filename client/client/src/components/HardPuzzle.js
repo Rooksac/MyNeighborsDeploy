@@ -40,8 +40,9 @@ export default function HardPuzzle() {
             color: '#FFC107',
             confirmButtonColor: '#FFC107',
           background: '#0D6EFD'
-          })}
-          handleReset()
+          })
+          handleReset()}
+          
     }
 
 
