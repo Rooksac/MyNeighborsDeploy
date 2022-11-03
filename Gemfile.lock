@@ -112,6 +112,7 @@ GEM
     nio4r (2.5.8)
     nokogiri (1.13.8-x86_64-linux)
       racc (~> 1.4)
+    pg (1.4.3)
     pry (0.14.1)
       coderay (~> 1.1)
       method_source (~> 1.0)
@@ -150,7 +151,6 @@ GEM
     rake (13.0.6)
     reline (0.3.1)
       io-console (~> 0.5)
-    sqlite3 (1.5.3-x86_64-linux)
     thor (1.2.1)
     timeout (0.3.0)
     tzinfo (2.0.5)
@@ -168,10 +168,10 @@ DEPENDENCIES
   bcrypt (~> 3.1.7)
   debug
   faker
+  pg (~> 1.4)
   pry
   puma (~> 5.0)
   rails (~> 7.0.4)
-  sqlite3 (~> 1.4)
   tzinfo-data
 
 RUBY VERSION
