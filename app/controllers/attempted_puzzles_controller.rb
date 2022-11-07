@@ -1,5 +1,5 @@
 class AttemptedPuzzlesController < ApplicationController
-    skip_before_action :authenticated_user, only: [:create]
+    skip_before_action :authorized, only: [:create]
     def create
         attempted_puzzle = AttemptedPuzzle.create!(user_id: current_user.id, puzzle_id: params[:puzzle_id], solved?:params[:solved?])
         render json: attempted_puzzle

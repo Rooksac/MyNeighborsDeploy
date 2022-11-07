@@ -27,7 +27,8 @@ export default function Login({onLogin, user}) {
   .then((response) => {
     if (response.ok){
       response.json().then((data) => {
-      onLogin(data);
+      onLogin(data.user);
+      localStorage.setItem('token', data.token)
       Swal.fire({
         icon: 'success',
         title: 'Success!',

@@ -1,10 +1,10 @@
 class PuzzlesController < ApplicationController
-    skip_before_action :authenticated_user, only: [:index, :show]
+    skip_before_action :authorized, only: [:index, :show]
     before_action :find_puzzle, only: [:show, :destroy]
     
     def index
-        if current_user
-        puzzles = Puzzle.puzzle_feed(current_user)
+        if @current_user
+        puzzles = Puzzle.puzzle_feed(@current_user)
         render json: puzzles
         else
         puzzles = Puzzle.all
@@ -17,7 +17,7 @@ class PuzzlesController < ApplicationController
     end
 
     def create
-        puzzle = Puzzle.create!(user_id: current_user.id, difficulty: params[:difficulty], solution: params[:solution])
+        puzzle = Puzzle.create!(user_id: @current_user.id, difficulty: params[:difficulty], solution: params[:solution])
         for clue in params[:clues] do
             Clue.create!(text: clue, puzzle: puzzle)
         end
@@ -27,6 +27,11 @@ class PuzzlesController < ApplicationController
     def destroy
         @puzzle.destroy!
         head :no_content
+    end
+
+    def puzzlehistory
+        puzzles = @current_user.puzzles
+        render json: puzzles
     end
 
     private

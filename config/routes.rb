@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
-  post "/login", to: "sessions#create"
-  delete "/logout", to: "sessions#destroy"
+  post "/login", to: "users#login"
+  delete "/logout", to: "users#logout"
   get "/me",  to: "users#me"
+  get "/puzzlehistory", to: "puzzles#puzzlehistory"
   
   resources :users, only: [:update, :delete, :create, :show]
   resources :puzzles, only: [:index, :show, :destroy, :create]

@@ -17,42 +17,46 @@ import Instructions from './components/Instructions'
 
 function App() {
   const [user, setUser] = useState('')
-  const [puzzleHistory, setPuzzleHistory] = useState([])
   const location = useLocation()
   console.log(location.pathname)
   function onLogin(userData){
     setUser(userData)
-    setPuzzleHistory(userData.puzzles)
   }
   function handleLogout(){
     fetch ('/logout', {
       method: 'DELETE',})
       .then((res) => {
-        if (res.ok) {
+          localStorage.removeItem("token")
           setUser('')
-        }
       }); 
   }
 
   
 
   useEffect(() => {
-    fetch("/me").then((res) => {
+    let token = localStorage.getItem("token");
+    if (token && !user.name) {
+      fetch("/me", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then((res) => {
       if (res.ok) {
       res.json().then((user) => {
-        setUser(user)
-        setPuzzleHistory(user.puzzles)
+        setUser(user.user)
       });
     }
     });
-  }, []);
+  }
+}, []);
   return (
     <div className="App">
       <NavBar user = {user} handleLogout = {handleLogout}/>
       <Routes>
       <Route path = '/login' element = {<Login onLogin = {onLogin} user = {user}/>}/>
       <Route path = '/' element = {<Home user = {user}/>}/>
-      <Route path = '/puzzle_history' element = {<PuzzleHistory puzzles = {puzzleHistory}/>}/>
+      <Route path = '/puzzle_history' element = {<PuzzleHistory/>}/>
       <Route path = '/puzzle_feed' element = {<PuzzleFeed />}/>
       <Route path = '/easy_puzzle' element = {<EasyPuzzle/>}/>
       <Route path = '/medium_puzzle' element = {<MediumPuzzle/>}/>
