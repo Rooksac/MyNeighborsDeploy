@@ -47,10 +47,12 @@ export default function HardPuzzle() {
 
 
     function savePuzzle() {
+    let token = localStorage.getItem("token");
     fetch('/puzzles', {
         method: 'POST', 
         headers: {
             'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
         },
         body: JSON.stringify({difficulty: '3', clues: savedClues, solution: permutations[0]}),
         })

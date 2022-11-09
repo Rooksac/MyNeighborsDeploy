@@ -23,12 +23,8 @@ function App() {
     setUser(userData)
   }
   function handleLogout(){
-    fetch ('/logout', {
-      method: 'DELETE',})
-      .then((res) => {
           localStorage.removeItem("token")
-          setUser('')
-      }); 
+          setUser('') 
   }
 
   
@@ -57,7 +53,7 @@ function App() {
       <Route path = '/login' element = {<Login onLogin = {onLogin} user = {user}/>}/>
       <Route path = '/' element = {<Home user = {user}/>}/>
       <Route path = '/puzzle_history' element = {<PuzzleHistory/>}/>
-      <Route path = '/puzzle_feed' element = {<PuzzleFeed />}/>
+      <Route path = '/puzzle_feed' element = {<PuzzleFeed user = {user} />}/>
       <Route path = '/easy_puzzle' element = {<EasyPuzzle/>}/>
       <Route path = '/medium_puzzle' element = {<MediumPuzzle/>}/>
       <Route path = '/hard_puzzle' element = {<HardPuzzle/>}/>

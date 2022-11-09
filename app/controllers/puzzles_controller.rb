@@ -3,13 +3,13 @@ class PuzzlesController < ApplicationController
     before_action :find_puzzle, only: [:show, :destroy]
     
     def index
-        if @current_user
-        puzzles = Puzzle.puzzle_feed(@current_user)
-        render json: puzzles
-        else
         puzzles = Puzzle.all
         render json: puzzles
-        end
+    end
+
+    def puzzlefeed
+        puzzles = Puzzle.puzzle_feed(@current_user)
+        render json: puzzles
     end
 
     def show

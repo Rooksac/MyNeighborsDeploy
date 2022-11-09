@@ -1,13 +1,25 @@
 import React, {useState, useEffect} from 'react'
 import PuzzleCard from './PuzzleCard'
 
-export default function PuzzleFeed() {
+export default function PuzzleFeed({user}) {
     const [puzzles, Setpuzzles] = useState([])
     function getPuzzles(){
+      if (user){
+        let token = localStorage.getItem("token");
+        fetch("/puzzlefeed", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+      .then((res)=>res.json())
+      .then((data)=>Setpuzzles(data))
+      }
+      else {
         fetch('/puzzles')
         .then((res)=>res.json())
         .then((data)=>Setpuzzles(data))
     }
+  }
     useEffect(getPuzzles, [])
   return (
     <div className='puzzfeed-bg'>

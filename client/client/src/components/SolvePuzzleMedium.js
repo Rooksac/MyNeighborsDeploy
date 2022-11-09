@@ -52,10 +52,12 @@ function handleSolve(){
   let newArray = [...puzzleData.building.neighborIds].reverse().join('')
   if (newArray===puzzle.solution){
     if (user){
+    let token = localStorage.getItem("token");
     fetch('/attempted_puzzles', {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json',
+    Authorization: `Bearer ${token}`
   },
   body: JSON.stringify({puzzle_id:puzzle.id, 'solved?': true}),
 })
@@ -76,10 +78,12 @@ function handleSolve(){
   }
   else {
     if (user){
+      let token = localStorage.getItem("token");
       fetch('/attempted_puzzles', {
     method: 'POST', 
     headers: {
       'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`
     },
     body: JSON.stringify({puzzle_id:puzzle.id, 'solved?': false}),
   })

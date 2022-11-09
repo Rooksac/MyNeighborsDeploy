@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   delete "/logout", to: "users#logout"
   get "/me",  to: "users#me"
   get "/puzzlehistory", to: "puzzles#puzzlehistory"
+  get "/puzzlefeed", to: "puzzles#puzzlefeed"
   
   resources :users, only: [:update, :delete, :create, :show]
   resources :puzzles, only: [:index, :show, :destroy, :create]

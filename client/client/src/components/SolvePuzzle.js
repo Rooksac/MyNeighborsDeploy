@@ -16,10 +16,12 @@ export default function SolvePuzzle({user}) {
 
     function handleTimeUp(){
         if (user){
+        let token = localStorage.getItem("token");
         fetch('/attempted_puzzles', {
           method: 'POST', 
           headers: {
             'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
           },
           body: JSON.stringify({puzzle_id:puzzle.id, 'solved?': false}),
         })
