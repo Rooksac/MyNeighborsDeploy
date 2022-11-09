@@ -1,0 +1,18 @@
+{
+  "files": {
+    "main.css": "/static/css/main.406768df.css",
+    "main.js": "/static/js/main.4e9c2f87.js",
+    "static/media/vector-cartoon-seafront.jpg": "/static/media/vector-cartoon-seafront.3e5be40173a1721c1359.jpg",
+    "static/media/formbuilding.png": "/static/media/formbuilding.0af8e1be810a854ae3cc.png",
+    "static/media/home.png": "/static/media/home.361856749a8f45003d85.png",
+    "static/media/Blomberg-8MKKZ.otf": "/static/media/Blomberg-8MKKZ.d3d26b0a9ca555264c10.otf",
+    "static/media/building.png": "/static/media/building.eb0b111f4af9320c9282.png",
+    "index.html": "/index.html",
+    "main.406768df.css.map": "/static/css/main.406768df.css.map",
+    "main.4e9c2f87.js.map": "/static/js/main.4e9c2f87.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.406768df.css",
+    "static/js/main.4e9c2f87.js"
+  ]
+}
