@@ -1,4 +1,4 @@
-class CluesController < ApplicationController
+class Api::CluesController < ApplicationController
     def create
         clue = Clue.create!(clue_params)
     end

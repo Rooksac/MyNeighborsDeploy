@@ -1,4 +1,4 @@
-class PuzzlesController < ApplicationController
+class Api::PuzzlesController < ApplicationController
     skip_before_action :authorized, only: [:index, :show]
     before_action :find_puzzle, only: [:show, :destroy]
     

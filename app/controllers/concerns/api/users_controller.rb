@@ -1,4 +1,4 @@
-class UsersController < ApplicationController
+class Api::UsersController < ApplicationController
     skip_before_action :authorized, only: [:create, :login, :logout]
     before_action :find_user, only: [:update, :show, :destroy]
 
