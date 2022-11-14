@@ -42,7 +42,7 @@ class Api::UsersController < ApplicationController
     end
 
     def me
-        render json: {user: @current_user}, status: :ok
+        render json: {user: UserSerializer.new(@current_user)}, status: :ok
     end
 
     private
