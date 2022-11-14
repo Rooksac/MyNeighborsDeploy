@@ -15,7 +15,7 @@ export default function PuzzleFeed({user}) {
       .then((data)=>Setpuzzles(data))
       }
       else {
-        fetch('/puzzles')
+        fetch('/api/puzzles')
         .then((res)=>res.json())
         .then((data)=>Setpuzzles(data))
     }
