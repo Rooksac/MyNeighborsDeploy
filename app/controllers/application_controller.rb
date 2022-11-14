@@ -25,7 +25,7 @@ class ApplicationController < ActionController::API
 end 
 
     def secret_key
-      Rails.application.credentials.secret_key
+      ENV['RAILS_ENV'] == 'production' ? ENV['RAILS_MASTER_KEY'] : Rails.application.credentials.secret_key
     end
 
   private
