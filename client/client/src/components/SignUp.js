@@ -12,7 +12,7 @@ export default function SignUp() {
         setNewUserInfo({...newUserInfo, [name]:value})
     }
     function handleSubmit(){
-        fetch('/users', {
+        fetch('/api/users', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

@@ -32,7 +32,7 @@ function App() {
   useEffect(() => {
     let token = localStorage.getItem("token");
     if (token && !user.name) {
-      fetch("/me", {
+      fetch("/api/me", {
         headers: {
           Authorization: `Bearer ${token}`,
         },

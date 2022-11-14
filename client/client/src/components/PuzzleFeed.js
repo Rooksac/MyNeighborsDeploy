@@ -6,7 +6,7 @@ export default function PuzzleFeed({user}) {
     function getPuzzles(){
       if (user){
         let token = localStorage.getItem("token");
-        fetch("/puzzlefeed", {
+        fetch("/api/puzzlefeed", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -15,7 +15,7 @@ export default function PuzzleFeed({user}) {
       .then((data)=>Setpuzzles(data))
       }
       else {
-        fetch('/puzzles')
+        fetch('/api/puzzles')
         .then((res)=>res.json())
         .then((data)=>Setpuzzles(data))
     }

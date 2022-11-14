@@ -48,7 +48,7 @@ export default function HardPuzzle() {
 
     function savePuzzle() {
     let token = localStorage.getItem("token");
-    fetch('/puzzles', {
+    fetch('/api/puzzles', {
         method: 'POST', 
         headers: {
             'Content-Type': 'application/json',

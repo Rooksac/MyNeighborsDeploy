@@ -17,7 +17,7 @@ export default function SolvePuzzle({user}) {
     function handleTimeUp(){
         if (user){
         let token = localStorage.getItem("token");
-        fetch('/attempted_puzzles', {
+        fetch('/api/attempted_puzzles', {
           method: 'POST', 
           headers: {
             'Content-Type': 'application/json',
@@ -40,7 +40,7 @@ export default function SolvePuzzle({user}) {
           navigate('/')
         }
     function getPuzzle(){
-        fetch(`/puzzles/${params.id}`)
+        fetch(`/api/puzzles/${params.id}`)
         .then((res)=>res.json())
         .then((data)=>{
             setPuzzle(data)

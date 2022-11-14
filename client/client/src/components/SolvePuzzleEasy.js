@@ -49,7 +49,7 @@ function handleSolve(){
   if (newArray===puzzle.solution){
     if (user){
     let token = localStorage.getItem("token");
-    fetch('/attempted_puzzles', {
+    fetch('/api/attempted_puzzles', {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json',
@@ -75,7 +75,7 @@ function handleSolve(){
   else {
     if (user){
       let token = localStorage.getItem("token");
-      fetch('/attempted_puzzles', {
+      fetch('/api/attempted_puzzles', {
     method: 'POST', 
     headers: {
       'Content-Type': 'application/json',

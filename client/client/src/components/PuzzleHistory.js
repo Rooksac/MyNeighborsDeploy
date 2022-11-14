@@ -6,7 +6,7 @@ export default function PuzzleHistory() {
   const [puzzles, setPuzzles] = useState([])
   function getPuzzleHistory(){
     let token = localStorage.getItem("token");
-    fetch("/puzzlehistory", {
+    fetch("/api/puzzlehistory", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
