@@ -4,7 +4,7 @@ import Card from 'react-bootstrap/Card';
 import Swal from 'sweetalert2';
 
 export default function CreatedPuzzleCard({puzzle}) {
-  let link = `https://my-neighbors.onrender.com/api/solve_puzzle/${puzzle.id}`
+  let link = `https://my-neighbors.onrender.com/solve_puzzle/${puzzle.id}`
  
   const copy = async () => {
     await navigator.clipboard.writeText(link);
