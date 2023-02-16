@@ -1,24 +1,4 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+My Neighbors is a great site for anyone who loves solving or creating logic puzzles!  Design clues about 5 neighbors and their relative position to eachother in an apartment building.  The site will verify wether your clues provide sufficient information for another user to solve.  Once your puzzle is validated and created, the site also provides a visual interface for users to solve the puzzles created by other users.
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
